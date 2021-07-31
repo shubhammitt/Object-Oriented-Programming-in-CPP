@@ -4,6 +4,9 @@
 #include "store.h"
 using namespace std;
 
+#define MAX_TITLE_LEN 20
+#define MAX_AUTHOR_LEN 30
+
 void GetBookAmount(double& amount) {
 	cin >> amount;
 	if (amount > 0)
@@ -25,21 +28,15 @@ void GetCharUpperCase(char& ch) {
 		ch -= 32;
 }
 
-void GetTitleInput(char **title) {
-	string _t; 
+void GetTitleInput(char title[]) {
 	cout << "Enter book title: ";
 	cin.ignore();
-	getline(cin, _t);
-	*title = new char[21];
-	strcpy(*title, _t.c_str());
+	cin.getline(title, MAX_TITLE_LEN);
 }
 
-void GetAuthorInput(char **author) {
-	string _a; 
-	cout << "Enter Author: ";
-	getline(cin, _a);
-	*author = new char[31];
-	strcpy(*author, _a.c_str());
+void GetAuthorInput(char author[]) {
+	cout << "Enter author title: ";
+	cin.getline(author, MAX_AUTHOR_LEN);
 }
 
 void PrintMenu() {
@@ -75,11 +72,11 @@ void GetBookGenreType(Genre& genre) {
 }
 
 void GetBookDetailsAndAdd(Store& store) {
-	char *title;
-	GetTitleInput(&title);
+	char title[MAX_TITLE_LEN + 1];
+	GetTitleInput(title);
 
-	char *author;
-	GetAuthorInput(&author);
+	char author[MAX_AUTHOR_LEN + 1];
+	GetAuthorInput(author);
 
 	Genre genre;
 	cout << "Enter genre: ";
@@ -100,13 +97,13 @@ void SearchBook(Store& store) {
 
 	if (choice == 'A') {
 		cin.ignore();
-		char *author;
-		GetAuthorInput(&author);
+		char author[MAX_AUTHOR_LEN + 1];
+		GetAuthorInput(author);
 		store.SearchBookByAuthor(author);
 	}
 	else if (choice == 'T') {
-		char *title;
-		GetTitleInput(&title);
+		char title[MAX_TITLE_LEN + 1];
+		GetTitleInput(title);
 		store.SearchBookByTitle(title);
 	}
 	else {
@@ -116,8 +113,8 @@ void SearchBook(Store& store) {
 }
 
 void SellBook(Store& store) {
-	char *title;
-	GetTitleInput(&title);
+	char title[MAX_TITLE_LEN + 1];
+	GetTitleInput(title);
 	store.SellBook(title);
 }
 
